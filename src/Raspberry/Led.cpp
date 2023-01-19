@@ -1,17 +1,24 @@
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/bool.hpp>
-#include <pigpio.h>
 #include "Raspberry/Led.hpp"
+#include <pigpio.h>
 
 
 namespace Raspberry{
 
+using namespace std::chrono_literals;
 
 LedNode::LedNode():Node("LedNode"){
-      
-      pub_ = create_publisher<std_msgs::msg::Bool>("pin_state", rclcpp::QoS(1));
-      gpioSetMode(LED_PIN, PI_OUTPUT);
-      gpioWrite(LED_PIN,1);
+
+      if (gpioInitialise() < 0) {
+      RCLCPP_ERROR(this->get_logger(), "pigpio initialisation failed");
+      return;
+    }
+    gpioSetMode(17, PI_OUTPUT);
+    gpioWrite(17, 1);
+
+    pub_ = create_publisher<std_msgs::msg::Bool>("pin_state", rclcpp::QoS(1));
+    timer_ = create_wall_timer(500ms, std::bind(&LedNode::read_pin, this));
 }
 void 
 LedNode::read_pin(){

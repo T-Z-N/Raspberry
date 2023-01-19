@@ -9,6 +9,7 @@ class LedNode: public rclcpp::Node{
         LedNode();
     private:
         rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr pub_;
+        rclcpp::TimerBase::SharedPtr timer_;
         void read_pin();
         int const LED_PIN = 17;
 };

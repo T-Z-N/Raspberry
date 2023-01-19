@@ -24,7 +24,9 @@ find_package(rclcpp REQUIRED)
 
 set(dependencies
     rclcpp
+    std_msgs
 )
+
 
 include_directories(include)
 add_library(${PROJECT_NAME} SHARED
@@ -35,6 +37,9 @@ ament_target_dependencies(${PROJECT_NAME} ${dependencies})
 add_executable(RaspberryPi src/Raspberry_main.cpp)
 ament_target_dependencies(RaspberryPi ${dependencies})
 target_link_libraries(RaspberryPi ${PROJECT_NAME})
+
+find_library(PIGPIO_LIBRARY pigpio /usr/local/lib)
+target_link_libraries(RaspberryPi ${PIGPIO_LIBRARY})
 
 install(TARGETS
   ${PROJECT_NAME}
