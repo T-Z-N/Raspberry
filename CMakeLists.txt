@@ -27,7 +27,6 @@ set(dependencies
     std_msgs
 )
 
-
 include_directories(include)
 add_library(${PROJECT_NAME} SHARED
   src/Raspberry/Led.cpp
@@ -38,8 +37,8 @@ add_executable(RaspberryPi src/Raspberry_main.cpp)
 ament_target_dependencies(RaspberryPi ${dependencies})
 target_link_libraries(RaspberryPi ${PROJECT_NAME})
 
-find_library(PIGPIO_LIBRARY pigpio /usr/local/lib)
-target_link_libraries(RaspberryPi ${PIGPIO_LIBRARY})
+find_library(WIRINGPI_LIB wiringPi /home/stag/WiringPi/wiringPi)
+target_link_libraries(RaspberryPi ${WIRINGPI_LIB})
 
 install(TARGETS
   ${PROJECT_NAME}

@@ -1,6 +1,6 @@
 #include "rclcpp/rclcpp.hpp"
-#include <pigpio.h>
 #include <std_msgs/msg/bool.hpp>
+#include <wiringPi.h>
 
 namespace Raspberry{
 

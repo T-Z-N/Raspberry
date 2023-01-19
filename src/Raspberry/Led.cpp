@@ -1,8 +1,7 @@
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/bool.hpp>
 #include "Raspberry/Led.hpp"
-#include <pigpio.h>
-
+#include <wiringPi.h>
 
 namespace Raspberry{
 
@@ -10,12 +9,12 @@ using namespace std::chrono_literals;
 
 LedNode::LedNode():Node("LedNode"){
 
-      if (gpioInitialise() < 0) {
-      RCLCPP_ERROR(this->get_logger(), "pigpio initialisation failed");
+      if (wiringPiSetup() < 0) {
+      RCLCPP_ERROR(this->get_logger(), "wiringPI initialisation failed");
       return;
     }
-    gpioSetMode(17, PI_OUTPUT);
-    gpioWrite(17, 1);
+    pinMode(17, OUTPUT);
+    digitalWrite(17, HIGH);
 
     pub_ = create_publisher<std_msgs::msg::Bool>("pin_state", rclcpp::QoS(1));
     timer_ = create_wall_timer(500ms, std::bind(&LedNode::read_pin, this));
@@ -23,7 +22,7 @@ LedNode::LedNode():Node("LedNode"){
 void 
 LedNode::read_pin(){
      std_msgs::msg::Bool pin_state_msg;
-     int pin_state = gpioRead(LED_PIN);
+     int pin_state = digitalRead(LED_PIN);
       if (pin_state == 1){
             std::cout << "The LED is lit.\n";
             pin_state_msg.data = true;
