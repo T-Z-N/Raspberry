@@ -13,8 +13,8 @@ LedNode::LedNode():Node("LedNode"){
       RCLCPP_ERROR(this->get_logger(), "wiringPI initialisation failed");
       return;
     }
-    pinMode(17, OUTPUT);
-    digitalWrite(17, HIGH);
+    pinMode(LED_PIN, OUTPUT);
+    digitalWrite(LED_PIN, HIGH);
 
     pub_ = create_publisher<std_msgs::msg::Bool>("pin_state", rclcpp::QoS(1));
     timer_ = create_wall_timer(500ms, std::bind(&LedNode::read_pin, this));
