@@ -14,7 +14,6 @@ LedNode::LedNode():Node("LedNode"){
       return;
     }
     pinMode(LED_PIN, OUTPUT);
-    digitalWrite(LED_PIN, HIGH);
     scan_sub = create_subscription<std_msgs::msg::String>("chatter",rclcpp::SensorDataQoS(), std::bind(&LedNode::scan_callback,this,_1));  
     pub_ = create_publisher<std_msgs::msg::Bool>("pin_state", rclcpp::QoS(1));
     timer_ = create_wall_timer(500ms, std::bind(&LedNode::read_pin, this));
