@@ -4,7 +4,7 @@
 #include <wiringPi.h>
 
 namespace Raspberry{
-
+using std::placeholders::_1;
 using namespace std::chrono_literals;
 
 LedNode::LedNode():Node("LedNode"){
@@ -15,7 +15,7 @@ LedNode::LedNode():Node("LedNode"){
     }
     pinMode(LED_PIN, OUTPUT);
     digitalWrite(LED_PIN, HIGH);
-
+    scan_sub = create_subscription<std_msgs::msg::String>("chatter",rclcpp::SensorDataQoS(), std::bind(&LedNode::scan_callback,this,_1));  
     pub_ = create_publisher<std_msgs::msg::Bool>("pin_state", rclcpp::QoS(1));
     timer_ = create_wall_timer(500ms, std::bind(&LedNode::read_pin, this));
 }
@@ -33,4 +33,13 @@ LedNode::read_pin(){
       }
       pub_->publish(pin_state_msg);
   }
+void  LedNode::scan_callback(std_msgs::msg::String::UniquePtr msg){
+        if(msg->data == "red"){
+            digitalWrite(LED_PIN, HIGH);
+        }
+        else{
+            digitalWrite(LED_PIN,LOW);
+        }
+    }
+
 }
