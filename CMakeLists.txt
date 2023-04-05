@@ -18,18 +18,21 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(geometry_msgs REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
 set(dependencies
     rclcpp
+    geometry_msgs
     std_msgs
 )
 
 include_directories(include)
 add_library(${PROJECT_NAME} SHARED
   src/Raspberry/Led.cpp
+  src/Raspberry/US_Sensor.cpp
 )
 ament_target_dependencies(${PROJECT_NAME} ${dependencies})
 
