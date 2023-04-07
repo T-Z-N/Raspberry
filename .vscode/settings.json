@@ -82,5 +82,20 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "bit": "cpp"
-    }
+    },
+    "python.analysis.extraPaths": [
+        "/home/stag/bookros2_ws/install/urdf_test/lib/python3.8/site-packages",
+        "/home/stag/bookros2_ws/install/tiago_description/lib/python3.8/site-packages",
+        "/home/stag/bookros2_ws/build/ros2controlcli",
+        "/home/stag/bookros2_ws/install/ros2controlcli/lib/python3.8/site-packages",
+        "/home/stag/bookros2_ws/install/pmb2_description/lib/python3.8/site-packages",
+        "/home/stag/bookros2_ws/build/launch_pal",
+        "/home/stag/bookros2_ws/install/launch_pal/lib/python3.8/site-packages",
+        "/home/stag/bookros2_ws/install/controller_manager/lib/python3.8/site-packages",
+        "/home/stag/bookros2_ws/install/controller_manager_msgs/lib/python3.8/site-packages",
+        "/home/stag/bookros2_ws/install/br2_tracking_msgs/lib/python3.8/site-packages",
+        "/home/stag/bookros2_ws/build/br2_fsm_bumpgo_py",
+        "/home/stag/bookros2_ws/install/br2_fsm_bumpgo_py/lib/python3.8/site-packages",
+        "/opt/ros/foxy/lib/python3.8/site-packages"
+    ]
 }
