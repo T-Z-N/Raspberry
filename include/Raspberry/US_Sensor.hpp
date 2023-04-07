@@ -1,5 +1,4 @@
 #include "rclcpp/rclcpp.hpp"
-#include <std_msgs/msg/int32.hpp>
 #include <geometry_msgs/msg/twist.hpp>
 #include <wiringPi.h>
 
@@ -11,7 +10,6 @@ class USNode: public rclcpp::Node{
     public:
         USNode();
     private:
-        rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr measured_distance_pub_;
         rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr light_status_pub_;
         rclcpp::TimerBase::SharedPtr timer_;
         const int GPIO_TRIGGER = 1;

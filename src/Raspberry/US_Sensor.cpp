@@ -19,7 +19,6 @@ USNode::USNode():Node("Ultra_Sonic_Sensor"){
     pinMode(GPIO_TRIGGER, OUTPUT);
     pinMode(GPIO_ECHO, INPUT);
     // Create publishers for the measured distance and light status
-    measured_distance_pub_ = create_publisher<std_msgs::msg::Int32>("US_Measured_Distance",rclcpp::QoS(1));
     light_status_pub_ = create_publisher<geometry_msgs::msg::Twist>("light",rclcpp::QoS(1));
     // Create a timer to trigger the distance calculation
     timer_ = create_wall_timer(100ms, std::bind(&USNode::Distance_Calculator, this));
@@ -66,12 +65,6 @@ void USNode::Distance_Calculator(){
     auto light_msg = geometry_msgs::msg::Twist();
     light_msg.linear.x = distance;
     light_status_pub_->publish(light_msg);
-
-    // Publish the measured distance for Real System
-    auto distance_msg = std_msgs::msg::Int32();
-    distance_msg.data = distance;
-    measured_distance_pub_->publish(distance_msg);
-    start_time_ = end_time_;
 }
 }
 
